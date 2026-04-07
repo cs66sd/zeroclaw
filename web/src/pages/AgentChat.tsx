@@ -394,9 +394,8 @@ export default function AgentChat() {
         {messages.map((msg, idx) => (
           <div
             key={msg.id}
-            className={`group flex items-start gap-3 ${
-              msg.role === 'user' ? 'flex-row-reverse animate-slide-in-right' : 'animate-slide-in-left'
-            }`}
+            className={`group flex items-start gap-3 ${msg.role === 'user' ? 'flex-row-reverse animate-slide-in-right' : 'animate-slide-in-left'
+              }`}
             style={{ animationDelay: `${Math.min(idx * 30, 200)}ms` }}
           >
             <div
