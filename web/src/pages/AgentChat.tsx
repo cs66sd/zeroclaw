@@ -131,9 +131,8 @@ export default function AgentChat() {
           break;
 
         case 'thinking':
+          // Thinking hidden — only show final output
           setTyping(true);
-          pendingThinkingRef.current += msg.content ?? '';
-          setStreamingThinking(pendingThinkingRef.current);
           break;
 
         case 'chunk':
@@ -420,12 +419,7 @@ export default function AgentChat() {
                     : { background: 'var(--pc-bg-elevated)', borderColor: 'var(--pc-border)', color: 'var(--pc-text-primary)', }
                 }
               >
-                {msg.thinking && (
-                  <details className="mb-2">
-                    <summary className="text-xs cursor-pointer select-none" style={{ color: 'var(--pc-text-muted)' }}>Thinking</summary>
-                    <pre className="text-xs mt-1 whitespace-pre-wrap break-words leading-relaxed overflow-auto max-h-60 p-2 rounded-lg" style={{ color: 'var(--pc-text-muted)', background: 'var(--pc-bg-surface)' }}>{msg.thinking}</pre>
-                  </details>
-                )}
+
                 {msg.toolCall ? (
                   <ToolCallCard toolCall={msg.toolCall} />
                 ) : msg.markdown ? (
@@ -463,12 +457,7 @@ export default function AgentChat() {
             </div>
             {streamingContent || streamingThinking ? (
               <div className="rounded-2xl px-4 py-3 border max-w-[75%]" style={{ background: 'var(--pc-bg-elevated)', borderColor: 'var(--pc-border)', color: 'var(--pc-text-primary)' }}>
-                {streamingThinking && (
-                  <details className="mb-2" open={!streamingContent}>
-                    <summary className="text-xs cursor-pointer select-none" style={{ color: 'var(--pc-text-muted)' }}>Thinking{!streamingContent && '...'}</summary>
-                    <pre className="text-xs mt-1 whitespace-pre-wrap break-words leading-relaxed overflow-auto max-h-60 p-2 rounded-lg" style={{ color: 'var(--pc-text-muted)', background: 'var(--pc-bg-surface)' }}>{streamingThinking}</pre>
-                  </details>
-                )}
+
                 {streamingContent && <p className="text-sm whitespace-pre-wrap break-words leading-relaxed">{streamingContent}</p>}
               </div>
             ) : (
